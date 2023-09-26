@@ -26,6 +26,16 @@ class Program
                     top = numerator;
                     bottom = denominator;
                 }
+
+                public string GetFractionString()
+                {
+                    Console.WriteLine($"{numerator}/{denominator}");
+                }
+                public double GetDecimalValue(decimal)
+                {
+                    double decimal = numerator/denominator;
+                    Console.WriteLine(decimal);
+                }
             }
     }
 }
