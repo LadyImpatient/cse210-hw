@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+//need to 
 class JournalEntry
 {
     public string Prompt { get; set; }
