@@ -49,11 +49,11 @@ class Program
         Random random = new Random();
         List<string> prompts = new List<string>
         {
-            "Who was the most interesting person I interacted with today?",
-            "What was the best part of my day?",
-            "How did I see the hand of the Lord in my life today?",
-            "What was the strongest emotion I felt today?",
-            "If I had one thing I could do over today, what would it be?"
+            "What happened today?",
+            "What was the most interesting thing you saw or heard?",
+            "What are you grateful for today?",
+            "What did you do today that you're proud of?",
+            "If you had three wishes what would you wish for? Why?"
         };
 
         while (true)
@@ -108,7 +108,7 @@ class Program
                     break;
 
                 default:
-                    Console.WriteLine("Invalid choice. Please try again.\n");
+                    Console.WriteLine("That is currently not an option. Please try again.\n");
                     break;
             }
         }
