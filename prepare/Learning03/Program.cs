@@ -15,12 +15,17 @@ class Program
                     bottom = 1;
                 }
 //top
-                public Fraction(int top)
+                public Fraction(int numerator)
                 {
-                    f.top = Top;
+                    top = numerator;
                     bottom = 1;
                 }
 
+                public Fraction(int numerator, int denominator)
+                {
+                    top = numerator;
+                    bottom = denominator;
+                }
             }
     }
 }

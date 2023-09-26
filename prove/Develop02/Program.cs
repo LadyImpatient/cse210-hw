@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 
-//need to 
 class JournalEntry
 {
-    public string Prompt { get; set; }
-    public string Response { get; set; }
-    public string Date { get; set; }
+    public string Prompt;
+    public string Response;
+    public string Date;
 
     public JournalEntry(string prompt, string response, string date)
     {
@@ -40,6 +38,15 @@ class Journal
     {
         entries.Clear();
     }
+
+    public void DisplayEntries()
+    {
+        Console.WriteLine("Journal Entries:");
+        foreach (var journalEntry in entries)
+        {
+            Console.WriteLine(journalEntry);
+        }
+    }
 }
 
 class Program
@@ -57,13 +64,13 @@ class Program
             "If you had three wishes what would you wish for? Why?"
         };
 
-        while (true)
+        bool exit = false; // Flag to control program exit
+
+        while (!exit)
         {
             Console.WriteLine("1. Write a new entry");
             Console.WriteLine("2. Display the journal");
-            Console.WriteLine("3. Save the journal to a file");
-            Console.WriteLine("4. Load the journal from a file");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("3. Exit");
             Console.Write("Enter your choice: ");
 
             string choice = Console.ReadLine();
@@ -82,30 +89,11 @@ class Program
                     break;
 
                 case "2":
-                    List<JournalEntry> allEntries = journal.GetAllEntries();
-                    Console.WriteLine("Journal Entries:");
-                    foreach (var journalEntry in allEntries)
-                    {
-                        Console.WriteLine(journalEntry);
-                    }
+                    journal.DisplayEntries();
                     break;
 
                 case "3":
-                    Console.Write("Enter the filename to save the journal: ");
-                    string saveFileName = Console.ReadLine();
-                    SaveJournalToFile(journal, saveFileName);
-                    Console.WriteLine("Journal saved to the file!\n");
-                    break;
-
-                case "4":
-                    Console.Write("Enter the filename to load the journal: ");
-                    string loadFileName = Console.ReadLine();
-                    journal = LoadJournalFromFile(loadFileName);
-                    Console.WriteLine("Journal loaded from the file!\n");
-                    break;
-
-                case "5":
-                    Environment.Exit(0);
+                    exit = true; // Set the exit flag to true to exit the loop
                     break;
 
                 default:
@@ -113,42 +101,5 @@ class Program
                     break;
             }
         }
-    }
-
-    static void SaveJournalToFile(Journal journal, string fileName)
-    {
-        using (StreamWriter writer = new StreamWriter(fileName))
-        {
-            foreach (var entry in journal.GetAllEntries())
-            {
-                writer.WriteLine($"{entry.Date}|{entry.Prompt}|{entry.Response}");
-            }
-        }
-    }
-
-    static Journal LoadJournalFromFile(string fileName)
-    {
-        Journal journal = new Journal();
-        try
-        {
-            using (StreamReader reader = new StreamReader(fileName))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    string[] parts = line.Split('|');
-                    if (parts.Length == 3)
-                    {
-                        JournalEntry entry = new JournalEntry(parts[1], parts[2], parts[0]);
-                        journal.AddEntry(entry);
-                    }
-                }
-            }
-        }
-        catch (FileNotFoundException)
-        {
-            Console.WriteLine("File not found.");
-        }
-        return journal;
     }
 }
