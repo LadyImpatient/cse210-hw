@@ -1,7 +1,6 @@
 using System;
 
 class Program
-
 {
     static void Main()
     {
@@ -31,12 +30,20 @@ class Program
             }
             else
             {
-                scripture.HideRandomWords(3); // Hide 3 random words
-                if (scripture.IsCompletelyHidden())
+                Console.WriteLine("Enter the number of words to hide:");
+                if (int.TryParse(Console.ReadLine(), out int numberToHide))
                 {
-                    Console.Clear();
-                    Console.WriteLine("Congratulations! You've hidden all the words.");
-                    shouldContinue = false;
+                    scripture.HideRandomWords(numberToHide);
+                    if (scripture.IsCompletelyHidden())
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Congratulations! You've hidden all the words.");
+                        shouldContinue = false;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid number.");
                 }
             }
         }
