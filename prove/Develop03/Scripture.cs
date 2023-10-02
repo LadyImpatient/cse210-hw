@@ -1,45 +1,4 @@
 using System;
-using System.Xml.Schema;
-
-class Word
-//Keeps track of a single word and whether it is shown or hidden.
-{
-    //variables
-    public string _text;
-    public bool _isHidden;
-    
-    //constructors
-    public Word(string text)
-    {
-        this._text = text;
-        _isHidden = false; 
-    }
-
-    public bool isHidden()
-    {
-        return _isHidden;
-    }
-
-    //getset
-    public string GetDisplayText()
-    {
-        if (_isHidden)
-        {
-            return new string('_', _text.Length);
-        }
-        else
-            {
-                return _text;
-            }
-        }
-
-    public void Hide()
-    {
-        _isHidden = true;
-    }
-
-
-}
 
 class Scripture
 {
@@ -88,35 +47,85 @@ class Scripture
 
     public bool IsCompletelyHidden()
     {
-        return _words.All(word => word._isHidden());
+        return _words.All(word => word.isHidden());
+    }
+}
+
+class Word
+{
+    private string _text;
+    private bool _isHidden;
+
+    public Word(string text)
+    {
+        this._text = text;
+        _isHidden = false;
+    }
+
+    public bool isHidden()
+    {
+        return _isHidden;
+    }
+
+    public string GetDisplayText()
+    {
+        if (_isHidden)
+        {
+            return new string('_', _text.Length);
+        }
+        else
+        {
+            return _text;
+        }
+    }
+
+    public void Hide()
+    {
+        _isHidden = true;
     }
 }
 
 class Reference
-//Keeps track of the book, chapter, and verse information.
 {
-    //variables
-    public string _book;
-    public int _chapter;
-    public int _startVerse;
-    public int _endVerse;
-    
-    //constructors
+    private string _book;
+    private int _chapter;
+    private int _startVerse;
+    private int _endVerse;
+
     public Reference(string book, int chapter, int verse)
     {
         _book = book;
         _chapter = chapter;
-        _startVerse = verse; 
+        _startVerse = verse;
         _endVerse = verse;
     }
+
     public Reference(string book, int chapter, int startVerse, int endVerse)
     {
         _book = book;
-        _chapter = chapter; 
+        _chapter = chapter;
         _startVerse = startVerse;
         _endVerse = endVerse;
     }
 
-    //getset
-}
+    // Implement getters and setters for _book, _chapter, _startVerse, and _endVerse
+    public string GetBook()
+    {
+        return _book;
+    }
 
+    public int GetChapter()
+    {
+        return _chapter;
+    }
+
+    public int GetStartVerse()
+    {
+        return _startVerse;
+    }
+
+    public int GetEndVerse()
+    {
+        return _endVerse;
+    }
+}
