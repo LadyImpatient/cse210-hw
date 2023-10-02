@@ -32,9 +32,11 @@ class Word
                 return _text;
             }
         }
-    }
 
-public void Hide() => _isHidden = true;
+    public void Hide()
+    {
+        _isHidden = true;
+    }
 
 
 }
