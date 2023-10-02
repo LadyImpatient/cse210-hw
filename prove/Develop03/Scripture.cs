@@ -1,35 +1,32 @@
-using System;
-
 class Scripture
 {
-    //variables, use array instead of list? 
+    //variables
     private Reference _reference;
-    private Word[] _words;
+    private List<Word> _words;
 
     //constructors
     public Scripture(Reference reference, string scriptureText)
     {
         _reference = reference;
+        _words = new List<Word>();
+
         string[] wordArray = scriptureText.Split(' ');
 
-        _words = new Word[wordArray.Length];
-        for (int i = 0; i < wordArray.Length; i++)
+        foreach (string wordText in wordArray)
         {
-            _words[i] = new Word(wordArray[i]);
+            _words.Add(new Word(wordText));
         }
     }
 
-    public void HideRandomWords(int numberToHide)
+    public void HideRandomWords()
     {
         Random random = new Random();
 
-        for (int i = 0; i < numberToHide; i++)
+        foreach (Word word in _words)
         {
-            int randomIndex = random.Next(0, _words.Length);
-
-            if (randomIndex < _words.Length)
+            if (random.Next(2) == 0) // Randomly hide words
             {
-                _words[randomIndex].Hide();
+                word.Hide();
             }
         }
     }
@@ -49,14 +46,7 @@ class Scripture
 
     public bool IsCompletelyHidden()
     {
-        foreach (Word word in _words)
-        {
-            if (!word.IsHidden())
-            {
-                return false;
-            }
-        }
-        return true;
+        return _words.All(word => word.IsHidden());
     }
 }
 
@@ -69,7 +59,7 @@ class Word
     //constructors
     public Word(string text)
     {
-        this._text = text;
+        _text = text;
         _isHidden = false;
     }
 
@@ -99,8 +89,8 @@ class Word
 
 class Reference
 {
-   //variables
-   private string _book;
+    //variables
+    private string _book;
     private int _chapter;
     private int _startVerse;
     private int _endVerse;
@@ -122,15 +112,7 @@ class Reference
         _endVerse = endVerse;
     }
 
-    public Reference(string book)
-    {
-        _book = book;
-        _chapter = 1;
-        _startVerse = 1;
-        _endVerse = 1;
-    }
-
-    // getset
+    //getset
     public string GetDisplayText()
     {
         if (_startVerse == _endVerse)
@@ -143,4 +125,3 @@ class Reference
         }
     }
 }
-
