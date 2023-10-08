@@ -4,7 +4,6 @@ class Program
 {
     static void Main()
     {
-        // Example usage
         Activity breathing = new BreathingActivity("Breathing");
         Activity reflection = new ReflectionActivity("Reflection");
         Activity listing = new ListingActivity("Listing");
