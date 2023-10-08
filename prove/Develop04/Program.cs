@@ -2,8 +2,25 @@ using System;
 
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
-        Console.WriteLine("Hello Develop04 World!");
+        // Example usage
+        Activity breathing = new BreathingActivity("Breathing");
+        Activity reflection = new ReflectionActivity("Reflection");
+        Activity listing = new ListingActivity("Listing");
+
+        breathing.Start();
+        // Perform the breathing activity
+
+        reflection.Start();
+        // Perform the reflection activity
+
+        listing.Start();
+        // Perform the listing activity
+
+        // End activities
+        breathing.End();
+        reflection.End();
+        listing.End();
     }
 }
