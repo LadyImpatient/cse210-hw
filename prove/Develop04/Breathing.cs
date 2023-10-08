@@ -2,13 +2,12 @@ using System;
 
 class BreathingActivity : Activity
 {
-    public BreathingActivity(string name) : base(name) { }
+    public BreathingActivity(string name, int duration) : base(name, duration) { }
 
-    public override void Start()
+    public override void PerformActivity()
     {
-        base.Start();
-        Console.WriteLine("Description: This activity will help you relax by guiding you through breathing in and out slowly. Clear your mind and focus on your breathing.");     
-        
+        Console.WriteLine("Description: This activity will help you relax by guiding you through breathing in and out slowly. Clear your mind and focus on your breathing.");
+
         int durationInSeconds = duration;
         while (durationInSeconds > 0)
         {
@@ -22,8 +21,8 @@ class BreathingActivity : Activity
         }
 
         Console.WriteLine("Breathing activity completed.");
-        Console.ReadLine();
     }
+
     private void Wait(int seconds)
     {
         DateTime start = DateTime.Now;

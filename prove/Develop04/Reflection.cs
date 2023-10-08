@@ -2,13 +2,12 @@ using System;
 
 class ReflectionActivity : Activity
 {
-    public ReflectionActivity(string name) : base(name) { }
+    public ReflectionActivity(string name, int duration) : base(name, duration) { }
 
-    public override void Start()
+    public override void PerformActivity()
     {
-        base.Start();
         Console.WriteLine("Description: This activity will help you reflect on times in your life when you have shown strength and resilience.");
-         string[] prompts = new string[]
+        string[] prompts = new string[]
         {
             "Think of a time when you stood up for someone else.",
             "Think of a time when you did something really difficult.",
@@ -37,13 +36,11 @@ class ReflectionActivity : Activity
             foreach (string question in questions)
             {
                 Console.WriteLine(question);
-                // Pause for reflection, you can use Console.ReadLine or another method if desired
                 Console.WriteLine("Press Enter to continue to the next question.");
                 Console.ReadLine();
             }
         }
 
         Console.WriteLine("Reflection activity completed.");
-        Console.ReadLine();
     }
 }

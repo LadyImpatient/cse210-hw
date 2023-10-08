@@ -4,12 +4,13 @@ class Activity
     protected int duration;
     protected string name;
 
-    public Activity(string name)
+    public Activity(string name, int duration)
     {
         this.name = name;
+        this.duration = duration;
     }
 
-    public virtual void Start()
+    public void Start()
     {
         Console.WriteLine($"Starting {name} activity...");
         Console.WriteLine($"Duration: {duration} seconds");
@@ -18,12 +19,17 @@ class Activity
         Console.ReadLine();
     }
 
-    public virtual void End()
+    public void End()
     {
         Console.WriteLine($"Good job! You have completed the {name} activity.");
         Console.WriteLine($"Activity: {name}");
         Console.WriteLine($"Duration: {duration} seconds");
         Console.WriteLine("Press Enter to continue.");
         Console.ReadLine();
+    }
+
+    public virtual void PerformActivity()
+    {
+        // This method should be overridden by derived activity classes
     }
 }

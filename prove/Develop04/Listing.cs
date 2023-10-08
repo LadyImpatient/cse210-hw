@@ -4,13 +4,9 @@ class ListingActivity : Activity
 {
     public ListingActivity(string name) : base(name) { }
 
-    public override void Start()
+    public override void PerformActivity()
     {
-        base.Start();
         Console.WriteLine("Description: This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.");
-        Console.WriteLine("Press Enter to begin.");
-        Console.ReadLine();
-
         string[] prompts = new string[]
         {
             "Who are people that you appreciate?",
@@ -30,7 +26,6 @@ class ListingActivity : Activity
         }
 
         Console.WriteLine("Listing activity completed.");
-        Console.ReadLine();
     }
 
     private void Countdown(int seconds)

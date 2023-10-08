@@ -4,22 +4,20 @@ class Program
 {
     static void Main()
     {
-        Activity breathing = new BreathingActivity("Breathing");
-        Activity reflection = new ReflectionActivity("Reflection");
+        Activity breathing = new BreathingActivity("Breathing", 300);
+        Activity reflection = new ReflectionActivity("Reflection", 300);
         Activity listing = new ListingActivity("Listing");
 
         breathing.Start();
-        // Perform the breathing activity
+        breathing.PerformActivity();
+        breathing.End();
 
         reflection.Start();
-        // Perform the reflection activity
+        reflection.PerformActivity();
+        reflection.End();
 
         listing.Start();
-        // Perform the listing activity
-
-        // End activities
-        breathing.End();
-        reflection.End();
+        listing.PerformActivity();
         listing.End();
     }
 }
