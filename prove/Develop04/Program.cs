@@ -4,13 +4,15 @@ class Program
 {
     static void Main()
     {
+        {
         while (true)
         {
             Console.WriteLine("Choose an activity:");
             Console.WriteLine("1. Breathing Activity");
             Console.WriteLine("2. Reflection Activity");
             Console.WriteLine("3. Listing Activity");
-            Console.WriteLine("4. Quit");
+            Console.WriteLine("4. Gratitude Activity");
+            Console.WriteLine("5. Quit");
 
             string choice = Console.ReadLine();
 
@@ -26,6 +28,9 @@ class Program
                     PerformListingActivity();
                     break;
                 case "4":
+                    PerformGratitudeActivity();
+                    break;
+                case "5":
                     Console.WriteLine("Goodbye!");
                     return;
                 default:
@@ -34,6 +39,7 @@ class Program
             }
         }
     }
+}
 
     static void PerformBreathingActivity()
     {
@@ -57,5 +63,13 @@ class Program
         listing.Start();
         listing.PerformActivity();
         listing.End();
+    }
+
+    static void PerformGratitudeActivity()
+    {
+        Activity gratitude = new GratitudeActivity("Gratitude", 300);
+        gratitude.Start();
+        gratitude.PerformActivity();
+        gratitude.End();
     }
 }
