@@ -2,7 +2,7 @@ using System;
 
 class ListingActivity : Activity
 {
-    public ListingActivity(string name) : base(name) { }
+public ListingActivity(string name, int duration) : base(name, duration) { }
 
     public override void PerformActivity()
     {
