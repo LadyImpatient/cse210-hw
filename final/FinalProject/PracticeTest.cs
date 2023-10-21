@@ -21,7 +21,7 @@ class PracticeTest
        
     }
 
-    private List<string> GenerateOptions()
+    private List<string> GenerateOptions(Organelle organelle)
     {
 
     }
