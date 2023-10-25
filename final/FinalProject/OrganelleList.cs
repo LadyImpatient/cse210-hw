@@ -14,11 +14,24 @@ class OrganelleList
 
     public void AddOrganelle(CustomOrganelle organelle)
     {
-
+        if (customOrganelleCount < customOrganelles.Length)
+        {
+            customOrganelles[customOrganelleCount] = organelle;
+            customOrganelleCount++;
+        }
+        else
+        {
+            Console.WriteLine("Custom organelle limit reached.");
+        }
     }
 
     public string GetOrganelleList()
     {
-
+        string list = "Custom Organelles:\n";
+        for (int i = 0; i < customOrganelleCount; i++)
+        {
+            list += customOrganelles[i].GetInfo() + "\n";
+        }
+        return list;
     }
 }
