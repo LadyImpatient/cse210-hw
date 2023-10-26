@@ -1,33 +1,35 @@
-using System;
-
 class PracticeTest
 {
-    private List<Organelle> organelles;
+    private OrganelleList organelleList;
 
-    public PracticeTest()
+    public PracticeTest(OrganelleList organelleList)
     {
-        organelles = new List<Organelle>();
-    }
-
-    public void AddOrganelle(Organelle organelle)
-    {
-        organelles.Add(organelle);
+        this.organelleList = organelleList;
     }
 
     public void StartTest()
     {
         Console.WriteLine("Welcome to the Organelle Practice Test!");
 
-        int score = 0;
+        Organelle[] customOrganelles = organelleList.GetOrganelles();
 
-        foreach (Organelle organelle in organelles)
+        if (customOrganelles.Length == 0)
+        {
+            Console.WriteLine("No custom organelles added. Please add organelles before taking the practice test.");
+            return;
+        }
+
+        int score = 0;
+        int totalQuestions = customOrganelles.Length;
+
+        foreach (Organelle organelle in customOrganelles)
         {
             Console.Clear();
             Console.WriteLine("Question:");
             Console.WriteLine(organelle.GetFunction());
 
             Console.WriteLine("Options:");
-            List<string> options = GenerateOptions(organelle);
+            List<string> options = GenerateOptions(organelle, customOrganelles);
 
             for (int i = 0; i < options.Count; i++)
             {
@@ -58,10 +60,10 @@ class PracticeTest
 
         Console.Clear();
         Console.WriteLine("Test Completed!");
-        Console.WriteLine($"Your score: {score} out of {organelles.Count}");
+        Console.WriteLine($"Your score: {score} out of {totalQuestions}");
     }
 
-    private List<string> GenerateOptions(Organelle organelle)
+    private List<string> GenerateOptions(Organelle organelle, Organelle[] allOrganelles)
     {
         List<string> options = new List<string>();
 
@@ -69,8 +71,8 @@ class PracticeTest
 
         while (options.Count < 4)
         {
-            int randomIndex = new Random().Next(organelles.Count);
-            Organelle randomOrganelle = organelles[randomIndex];
+            int randomIndex = new Random().Next(allOrganelles.Length);
+            Organelle randomOrganelle = allOrganelles[randomIndex];
             if (!options.Contains(randomOrganelle.GetName()))
             {
                 options.Add(randomOrganelle.GetName());

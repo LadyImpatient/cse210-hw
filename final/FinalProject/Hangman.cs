@@ -1,96 +1,123 @@
-using System;
-
-// Hangman class for playing Hangman game
 class Hangman
 {
-    protected string term; // Change the access modifier to protected
+    private string term;
     private string definition;
-    private char[] guessedLetters;
-    private int guessedLetterCount;
-    private int incorrectGuesses;
+    private char[] correctGuesses;
+    private int correctGuessCount;
+    private char[] incorrectGuesses;
+    private int incorrectGuessCount;
+    private int maxIncorrectGuesses = 6;
+    private bool isGuessed;
 
     public Hangman(string term, string definition)
     {
         this.term = term.ToLower();
         this.definition = definition;
-        guessedLetters = new char[26];
-        guessedLetterCount = 0;
-        incorrectGuesses = 0;
+        correctGuesses = new char[26];
+        correctGuessCount = 0;
+        incorrectGuesses = new char[maxIncorrectGuesses];
+        incorrectGuessCount = 0;
+        isGuessed = false;
     }
 
     public bool GuessTerm(string guess)
     {
         guess = guess.ToLower();
+
+        if (guess == term)
+        {
+            isGuessed = true;
+            return true;
+        }
+
         char letter = guess[0];
 
-        if (Array.IndexOf(guessedLetters, letter) == -1)
+        if (Array.IndexOf(correctGuesses, letter) == -1 && Array.IndexOf(incorrectGuesses, letter) == -1)
         {
-            guessedLetters[guessedLetterCount] = letter;
-            guessedLetterCount++;
-
-            if (CheckGuess())
+            if (term.Contains(letter))
             {
-                return true;
+                correctGuesses[correctGuessCount] = letter;
+                correctGuessCount++;
+            }
+            else
+            {
+                incorrectGuesses[incorrectGuessCount] = letter;
+                incorrectGuessCount++;
             }
         }
         else
         {
             Console.WriteLine("You've already guessed that letter.");
         }
-        return false;
+
+        isGuessed = CheckGuess();
+        return isGuessed;
+    }
+
+    public bool IsGuessed()
+    {
+        return isGuessed;
     }
 
     private bool CheckGuess()
     {
         foreach (char letter in term)
         {
-            if (Array.IndexOf(guessedLetters, letter) == -1)
+            if (Array.IndexOf(correctGuesses, letter) == -1)
             {
                 return false;
             }
         }
+        isGuessed = true;
         return true;
     }
 
     public void DisplayHangman()
     {
-        // Hangman drawing
+        // Hangman drawing stages
         string[] hangmanDrawing =
         {
             "   _____ ",
             "   |   | ",
-            $"   {((incorrectGuesses >= 1) ? "O" : " ")}   | ",
-            $"  {((incorrectGuesses >= 3) ? "/" : " ")}{((incorrectGuesses >= 2) ? "|" : " ")}{((incorrectGuesses >= 4) ? "\\" : " ")}  | ",
-            $"  {((incorrectGuesses >= 5) ? "/" : " ")} {((incorrectGuesses >= 6) ? "\\" : " ")}  | ",
+            $"   {((incorrectGuessCount >= 1) ? "O" : " ")}   | ",
+            $"  {((incorrectGuessCount >= 3) ? "/" : " ")}{((incorrectGuessCount >= 2) ? "|" : " ")}{((incorrectGuessCount >= 4) ? "\\" : " ")}  | ",
+            $"  {((incorrectGuessCount >= 5) ? "/" : " ")} {((incorrectGuessCount >= 6) ? "\\" : " ")}  | ",
             "       | ",
             "  _____| "
         };
 
         Console.Clear();
-        Console.WriteLine(definition);
+        Console.WriteLine($"Organelle Function: {definition}");
 
-        foreach (string line in hangmanDrawing)
+        for (int i = 0; i <= incorrectGuessCount && i < hangmanDrawing.Length; i++)
         {
-            Console.WriteLine(line);
+            Console.WriteLine(hangmanDrawing[i]);
         }
         Console.WriteLine();
 
         // Display guessed letters
-        Console.Write("Guessed Letters: ");
-        for (int i = 0; i < guessedLetterCount; i++)
+        Console.Write("Correct Letters: ");
+        for (int i = 0; i < correctGuessCount; i++)
         {
-            Console.Write(guessedLetters[i] + " ");
+            Console.Write(correctGuesses[i] + " ");
+        }
+        Console.WriteLine();
+
+        Console.Write("Incorrect Letters: ");
+        for (int i = 0; i < incorrectGuessCount; i++)
+        {
+            Console.Write(incorrectGuesses[i] + " ");
         }
         Console.WriteLine();
     }
 
     public bool IsGameOver()
     {
-        return incorrectGuesses >= 6 || CheckGuess();
+        return incorrectGuessCount >= maxIncorrectGuesses || isGuessed;
     }
 
-    internal object GetTerm()
+    public string GetTerm()
     {
-        throw new NotImplementedException();
+        return term;
     }
 }

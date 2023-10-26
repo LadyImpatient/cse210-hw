@@ -1,6 +1,5 @@
 using System;
 
-// OrganelleList class for keeping track of custom organelles
 class OrganelleList
 {
     private Organelle[] customOrganelles;
@@ -21,17 +20,36 @@ class OrganelleList
         }
         else
         {
-            Console.WriteLine("Custom organelle limit reached.");
+            Console.WriteLine("\n Custom organelle limit reached.");
         }
     }
 
-    public string GetOrganelleList()
+    public Organelle[] GetOrganelles()
     {
-        string list = "Custom Organelles:\n";
+        Organelle[] organelles = new Organelle[customOrganelleCount];
+        Array.Copy(customOrganelles, organelles, customOrganelleCount);
+        return organelles;
+    }
+
+    public string[] GetOrganelleInfo()
+    {
+        string[] organelleInfo = new string[customOrganelleCount];
         for (int i = 0; i < customOrganelleCount; i++)
         {
-            list += customOrganelles[i].GetInfo() + "\n";
+            organelleInfo[i] = $"{customOrganelles[i].Name} - {customOrganelles[i].Function}";
         }
-        return list;
+        return organelleInfo;
+    }
+
+    public Organelle GetOrganelleByName(string name)
+    {
+        foreach (Organelle organelle in customOrganelles)
+        {
+            if (organelle.Name == name)
+            {
+                return organelle;
+            }
+        }
+        return null;
     }
 }

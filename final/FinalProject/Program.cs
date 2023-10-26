@@ -4,15 +4,16 @@ class Program
 {
     static void Main()
     {
-        FlashCard flashCard = new FlashCard();
-        HangmanGame hangmanGame = new HangmanGame();
-        PracticeTest practiceTest = new PracticeTest();
+        OrganelleList organelleList = new OrganelleList();
+        FlashCard flashCard = new FlashCard(organelleList);
+        HangmanGame hangmanGame = new HangmanGame(organelleList); // Pass organelleList as an argument
+        PracticeTest practiceTest = new PracticeTest(organelleList); // Pass organelleList as an argument
 
         while (true)
         {
-            Console.WriteLine("Choose an option:");
-            Console.WriteLine("1. Study Organelles (Flashcards)");
-            Console.WriteLine("2. Add Custom Organelle");
+            Console.WriteLine("\n Choose an option:");
+            Console.WriteLine("1. Add Custom Organelle");
+            Console.WriteLine("2. Study Organelles (Flashcards)");
             Console.WriteLine("3. List Custom Organelles");
             Console.WriteLine("4. Play Hangman");
             Console.WriteLine("5. Take Practice Test");
@@ -23,15 +24,20 @@ class Program
             switch (choice)
             {
                 case "1":
-                    flashCard.StudyOrganelles();
+                    do
+                    {
+                        Console.Write("Enter organelle name: ");
+                        string name = Console.ReadLine();
+                        Console.Write("Enter organelle function: ");
+                        string function = Console.ReadLine();
+                        flashCard.AddCustomOrganelle(name, function);
+                        Console.WriteLine("Custom organelle added.");
+                        Console.WriteLine("Add another custom organelle? (Y/N): ");
+                    } while (Console.ReadLine().Trim().Equals("Y", StringComparison.OrdinalIgnoreCase));
                     break;
 
                 case "2":
-                    Console.Write("Enter organelle name: ");
-                    string name = Console.ReadLine();
-                    Console.Write("Enter organelle function: ");
-                    string function = Console.ReadLine();
-                    flashCard.AddCustomOrganelle(name, function);
+                    flashCard.StudyOrganelles();
                     break;
 
                 case "3":

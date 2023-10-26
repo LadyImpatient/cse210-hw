@@ -7,6 +7,6 @@ class CustomOrganelle : Organelle
 
     public override string GetInfo()
     {
-        return $"{Name}: {Function}";
+        return $"\n {Name}: {Function}";
     }
 }

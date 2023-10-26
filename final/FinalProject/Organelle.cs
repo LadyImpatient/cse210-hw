@@ -1,6 +1,5 @@
 using System;
 
-// Organelle base class (Demonstrates abstraction)
 abstract class Organelle
 {
     public string Name { get; protected set; }
